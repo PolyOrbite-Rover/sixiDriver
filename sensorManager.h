@@ -9,7 +9,7 @@
 
 #define NUM_SENSORS 6
 
-const float SENSORS_OFFSETS[NUM_SENSORS] = {-24.1, -70.4, -65.1, 0.0, 0.0, 0.0};
+const float SENSORS_OFFSETS[NUM_SENSORS] = {-24.1, -70.4, -65.1, 0.0, 67.8, 90.4};
 
 // use in for(ALL_SENSORS(i)) { //i will be rising
 #  define ALL_SENSORS(NN) \

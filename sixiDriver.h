@@ -53,7 +53,7 @@
 #include "rosserialInterface.h"
 #include "sensorManager.h"
 
-#define NUM_TEST 3
+#define NUM_STEPPERS 6
 
 
 class SixiDriver
@@ -84,7 +84,7 @@ private:
   // Objects
   SensorManager sensorManager_;
   ROSserialInterface rosserialInterface_;
-  AccelStepper* pAccelStepperObjectArray_[NUM_TEST];
+  AccelStepper* pAccelStepperObjectArray_[NUM_STEPPERS];
 
   // Attributes
   float positions_[NUM_SENSORS];
@@ -93,26 +93,38 @@ private:
   bool verbose_;
 
   // Constants
-  const float STEPS_PER_DEGREE_[NUM_TEST] = { MOTOR_0_STEPS_PER_DEGREE,
-                                              MOTOR_1_STEPS_PER_DEGREE,
-                                              MOTOR_2_STEPS_PER_DEGREE};
+  const float STEPS_PER_DEGREE_[NUM_STEPPERS] = { MOTOR_0_STEPS_PER_DEGREE,
+                                                  MOTOR_1_STEPS_PER_DEGREE,
+                                                  MOTOR_2_STEPS_PER_DEGREE,
+                                                  MOTOR_3_STEPS_PER_DEGREE,
+                                                  MOTOR_4_STEPS_PER_DEGREE,
+                                                  MOTOR_5_STEPS_PER_DEGREE};
 
-  const int STEP_PINS_[NUM_TEST] = {MOTOR_0_STEP_PIN,
-                                    MOTOR_1_STEP_PIN,
-                                    MOTOR_2_STEP_PIN};
+  const int STEP_PINS_[NUM_STEPPERS] = {MOTOR_0_STEP_PIN,
+                                        MOTOR_1_STEP_PIN,
+                                        MOTOR_2_STEP_PIN,
+                                        MOTOR_3_STEP_PIN,
+                                        MOTOR_4_STEP_PIN,
+                                        MOTOR_5_STEP_PIN};
 
-  const int DIR_PINS_[NUM_TEST] = { MOTOR_0_DIR_PIN,
-                                    MOTOR_1_DIR_PIN,
-                                    MOTOR_2_DIR_PIN};
+  const int DIR_PINS_[NUM_STEPPERS] = { MOTOR_0_DIR_PIN,
+                                        MOTOR_1_DIR_PIN,
+                                        MOTOR_2_DIR_PIN,
+                                        MOTOR_3_DIR_PIN,
+                                        MOTOR_4_DIR_PIN,
+                                        MOTOR_5_DIR_PIN};
 
-  const int ENABLE_PINS_[NUM_TEST] = {MOTOR_0_ENABLE_PIN,
-                                      MOTOR_1_ENABLE_PIN,
-                                      MOTOR_2_ENABLE_PIN};
+  const int ENABLE_PINS_[NUM_STEPPERS] = {MOTOR_0_ENABLE_PIN,
+                                          MOTOR_1_ENABLE_PIN,
+                                          MOTOR_2_ENABLE_PIN,
+                                          MOTOR_3_ENABLE_PIN,
+                                          MOTOR_4_ENABLE_PIN,
+                                          MOTOR_5_ENABLE_PIN};
 
-  const float DEFAULT_SPEEDS_[NUM_TEST] = {200.0, 200.0, 200.0};
-  const float DEFAULT_ACCELS_[NUM_TEST] = {200.0, 200.0, 200.0};
+  const float DEFAULT_SPEEDS_[NUM_STEPPERS] = {200.0, 200.0, 200.0, 200.0, 200.0, 200.0};
+  const float DEFAULT_ACCELS_[NUM_STEPPERS] = {200.0, 200.0, 200.0, 200.0, 200.0, 200.0};
 
-  float HOME_POSITION_[NUM_TEST] = {0.0, 0.0, 0.0}; // {0.0, 0.0, 0.0, 0.0, 0.0, 0.0}
+  float HOME_POSITION_[NUM_STEPPERS] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
 };
 #endif

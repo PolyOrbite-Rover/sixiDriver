@@ -8,7 +8,7 @@
 
 
 SixiDriver::SixiDriver(unsigned long publicationPeriodMs, bool verbose): verbose_(verbose), publicationPeriodMs_(publicationPeriodMs) {
-  for (int i=0;  i < NUM_TEST; i++) {
+  for (int i=0;  i<NUM_STEPPERS; i++) {
     pAccelStepperObjectArray_[i] = new AccelStepper(AccelStepper::DRIVER, STEP_PINS_[i], DIR_PINS_[i]);
     pinMode(ENABLE_PINS_[i], OUTPUT);
   }
@@ -16,7 +16,7 @@ SixiDriver::SixiDriver(unsigned long publicationPeriodMs, bool verbose): verbose
 
 
 SixiDriver::~SixiDriver() {
-  for (int i=0;  i < NUM_TEST; i++)
+  for (int i=0;  i<NUM_STEPPERS; i++)
     delete pAccelStepperObjectArray_[i];
 }
 
@@ -38,7 +38,7 @@ void SixiDriver::moveToHome() {
 
 void SixiDriver::updateSensors() {
   sensorManager_.updateAll();
-  for (int i=0; i<NUM_TEST; i++)
+  for (int i=0; i<NUM_STEPPERS; i++)
     positions_[i] = sensorManager_.sensors[i].angle;
 }
 
@@ -46,7 +46,7 @@ void SixiDriver::updateSensors() {
 void SixiDriver::updateSteppersPositions() {
   sensorManager_.updateAll();
 
-  for (int i=0; i<NUM_TEST; i++){
+  for (int i=0; i<NUM_STEPPERS; i++){
     positions_[i] = sensorManager_.sensors[i].angle;
     long pos = round(STEPS_PER_DEGREE_[i] * positions_[i]);
     pAccelStepperObjectArray_[i]->setCurrentPosition(pos);
@@ -63,32 +63,32 @@ void SixiDriver::updateSteppersPositions() {
 
 
 void SixiDriver::enableMotors() {
-  for (int i=0; i<NUM_TEST; i++)
+  for (int i=0; i<NUM_STEPPERS; i++)
     digitalWrite(ENABLE_PINS_[i], LOW);
 }
 
 
 void SixiDriver::disableMotors() {
-  for (int i=0; i<NUM_TEST; i++)
+  for (int i=0; i<NUM_STEPPERS; i++)
     digitalWrite(ENABLE_PINS_[i], HIGH);
 }
 
 
 void SixiDriver::setMaxSpeedForAll(const float* speedArray) {
-  for (int i=0; i<NUM_TEST; i++)
+  for (int i=0; i<NUM_STEPPERS; i++)
     pAccelStepperObjectArray_[i]->setMaxSpeed(speedArray[i]);
 }
 
 
 void SixiDriver::setAccelerationForAll(const float* accelArray) {
-  for (int i=0; i<NUM_TEST; i++)
+  for (int i=0; i<NUM_STEPPERS; i++)
     pAccelStepperObjectArray_[i]->setAcceleration(accelArray[i]);
 }
 
 
 void SixiDriver::moveAllTo(float* positionArray) {
   if (verbose_) Serial.println("-------- MOVING (STEPS) --------");
-  for (int i=0; i<NUM_TEST; i++) {
+  for (int i=0; i<NUM_STEPPERS; i++) {
     long pos = round(STEPS_PER_DEGREE_[i] * positionArray[i]);
     pAccelStepperObjectArray_[i]->moveTo(pos);
     if (verbose_){
@@ -102,7 +102,7 @@ void SixiDriver::moveAllTo(float* positionArray) {
 
 
 void SixiDriver::runAll() {
-  for (int i=0; i<NUM_TEST; i++) {
+  for (int i=0; i<NUM_STEPPERS; i++) {
     if (pAccelStepperObjectArray_[i]->distanceToGo() != 0)
       pAccelStepperObjectArray_[i]->run();
   }
