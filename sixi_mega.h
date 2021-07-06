@@ -44,15 +44,15 @@
 #  define MOTOR_3_STEP_PIN   36
 #  define MOTOR_3_ENABLE_PIN 38
 
-#  define MOTOR_4_LETTER     'V'
-#  define MOTOR_4_DIR_PIN    34
-#  define MOTOR_4_STEP_PIN   33
-#  define MOTOR_4_ENABLE_PIN 35
+#  define MOTOR_4_LETTER     'W'
+#  define MOTOR_4_DIR_PIN    31
+#  define MOTOR_4_STEP_PIN   30
+#  define MOTOR_4_ENABLE_PIN 32
 
-#  define MOTOR_5_LETTER     'W'
-#  define MOTOR_5_DIR_PIN    31
-#  define MOTOR_5_STEP_PIN   30
-#  define MOTOR_5_ENABLE_PIN 32
+#  define MOTOR_5_LETTER     'V'
+#  define MOTOR_5_DIR_PIN    34
+#  define MOTOR_5_STEP_PIN   33
+#  define MOTOR_5_ENABLE_PIN 35
 
 // These are dummy placeholders because it's easier than rewriting the rest of the code.
 #  define MOTOR_0_LIMIT_SWITCH_PIN 9  //(37)  // x-

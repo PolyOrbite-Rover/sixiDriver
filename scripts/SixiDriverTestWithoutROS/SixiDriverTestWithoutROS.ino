@@ -33,7 +33,7 @@ void setup()
   Serial.begin(57600);
   driver.enableMotors();
   Serial.println("Started!");
-  driver.moveToHome();
+ //driver.moveToHome();
 }
 
 void loop()
