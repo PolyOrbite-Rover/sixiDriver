@@ -4,9 +4,15 @@
 
 /* Example of use -> run these commands one by one in the Serial monitor
 
-v300,300,300,300,300,300
 
+v300,300,300,300,300,300
+v700,700,700,700,700,700
+v1000,1000,1000,1000,1000,1000
+v2000,2000,2000,2000,2000,1000
+t45
 p45,-45,45,0,0,0
+p0,0,0,0,0,0
+p-30,20,60,150,80,90
 
 */
 #define  BufferSize   30            //Input Buffer to incoming comunications
@@ -22,7 +28,7 @@ float input_value=0, input_value2=0, input_value3=0, input_value4=0, input_value
 
 // Declare the new line character
 const char newLineChar='\n';
-int data = 0; // 0 = vitesse et 1 = position
+int data = 0; // 0 = vitesse, 1 = position et 2=outil
 
 #include "sixiDriver.h"
 
@@ -33,6 +39,7 @@ void setup()
   Serial.begin(57600);
   driver.enableMotors();
   Serial.println("Started!");
+  driver.attachTool();
  //driver.moveToHome();
 }
 
@@ -65,7 +72,7 @@ void loop()
         Serial.println("Speed can NOT be negative!");
     }
     
-    else {
+    else if (data == 1){  
       Serial.print("Position: "); 
       Serial.print(input_value); Serial.print(" ");
       Serial.print(input_value2); Serial.print(" ");
@@ -76,6 +83,14 @@ void loop()
       float arrayForPosition[6] = {input_value, input_value2, input_value3, input_value4, input_value5, input_value6};
       driver.moveAllTo(arrayForPosition);   
     }
+
+    else if (data == 2){  
+      int ToolPos = (int)input_value;
+      Serial.print("Position outils: "); 
+      Serial.print(ToolPos); Serial.println();
+      driver.moveTool(ToolPos);
+    }
+
     //clear all after reception
     InputString = "";
     InputString2 = "";
@@ -106,6 +121,8 @@ void serialEvent() {
           data=0;
       else if (inChar == 'p')
           data=1;
+      else if (inChar == 't')
+          data=2;
       else if (inChar == ','){
         if (currentInputString == &InputString) currentInputString = &InputString2;
         else if (currentInputString == &InputString2) currentInputString = &InputString3;
