@@ -25,6 +25,7 @@ void SixiDriver::start() {
   enableMotors();
   sensorManager_.setup();
   rosserialInterface_.setup();
+  attachTool();
 }
 
 
@@ -59,6 +60,12 @@ void SixiDriver::updateSteppersPositions() {
     }
     Serial.println();
   }
+}
+
+
+void SixiDriver::attachTool() {
+  if (verbose_) Serial.println("Attaching servo!"); 
+  servoTool_.attach(SERVO_PIN_);
 }
 
 
@@ -100,6 +107,13 @@ void SixiDriver::moveAllTo(float* positionArray) {
   }
 }
 
+void SixiDriver::moveTool(int positionTool) {
+  if (verbose_) Serial.println("-------- MOVING TOOL (DEG) --------");
+  servoTool_.write(positionTool);
+  if (verbose_) {
+    Serial.print(positionTool); Serial.println();
+  }
+}
 
 void SixiDriver::runAll() {
   for (int i=0; i<NUM_STEPPERS; i++) {

@@ -54,6 +54,8 @@
 #  define MOTOR_5_STEP_PIN   33
 #  define MOTOR_5_ENABLE_PIN 35
 
+#  define TOOL_PIN     12
+
 // These are dummy placeholders because it's easier than rewriting the rest of the code.
 #  define MOTOR_0_LIMIT_SWITCH_PIN 9  //(37)  // x-
 #  define MOTOR_1_LIMIT_SWITCH_PIN 9  //(36)  // x+

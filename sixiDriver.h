@@ -32,12 +32,13 @@
 #define SIXI_H
 
 #include <AccelStepper.h>
+#include <Servo.h> 
 #include "sixi_mega.h"
 #include "rosserialInterface.h"
 #include "sensorManager.h"
 
 #define NUM_STEPPERS 6
-
+#define NUM_SERVO 1
 
 class SixiDriver
 /**
@@ -60,6 +61,8 @@ public:
   void setMaxSpeedForAll(const float* speedArray);
   void setAccelerationForAll(const float* accelArray);
   void moveAllTo(float* positionArray);
+  void attachTool();
+  void moveTool(int positionTool);
   void runAll();
   void main();
 
@@ -68,6 +71,7 @@ private:
   SensorManager sensorManager_;
   ROSserialInterface rosserialInterface_;
   AccelStepper* pAccelStepperObjectArray_[NUM_STEPPERS];
+  Servo servoTool_; 
 
   // Attributes
   float positions_[NUM_SENSORS];
@@ -76,6 +80,8 @@ private:
   bool verbose_;
 
   // Constants
+  const int SERVO_PIN_= TOOL_PIN;
+
   const float STEPS_PER_DEGREE_[NUM_STEPPERS] = { MOTOR_0_STEPS_PER_DEGREE,
                                                   MOTOR_1_STEPS_PER_DEGREE,
                                                   MOTOR_2_STEPS_PER_DEGREE,
@@ -104,8 +110,8 @@ private:
                                           MOTOR_4_ENABLE_PIN,
                                           MOTOR_5_ENABLE_PIN};
 
-  const float DEFAULT_SPEEDS_[NUM_STEPPERS] = {200.0, 200.0, 200.0, 200.0, 200.0, 200.0};
-  const float DEFAULT_ACCELS_[NUM_STEPPERS] = {200.0, 200.0, 200.0, 200.0, 200.0, 200.0};
+  const float DEFAULT_SPEEDS_[NUM_STEPPERS] = {700.0,700.0, 700.0, 700.0, 700.0, 700.0};
+  const float DEFAULT_ACCELS_[NUM_STEPPERS] = {300.0, 300.0, 300.0, 300.0, 300.0, 300.0};
 
   float HOME_POSITION_[NUM_STEPPERS] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
